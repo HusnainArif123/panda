@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       email: findUser.email,
     };
     //create a token
-    const token = await jwt.sign(tokenData, " ", {
+    const token = await jwt.sign(tokenData, "nextJsPanda", {
       expiresIn: "2d",
     });
 
