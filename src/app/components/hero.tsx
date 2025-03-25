@@ -16,17 +16,31 @@ const RestaurantCard = ({
   rating,
   closingTime,
   openingTime,
-  ratingUser, // API provides time in format "12:00 AM"
+  ratingUser,
 }: any) => {
   // Get current time in Pakistan timezone
-  const currentTime = moment().tz("Asia/Karachi").format("hh:mm A");
+  const currentTime = moment().tz("Asia/Karachi");
 
-  // Check if the restaurant is closed (Only if closingTime is provided)
-  const isClosed =
-    closingTime &&
-    moment(currentTime, "hh:mm A").isSameOrAfter(
-      moment(closingTime, "hh:mm A")
-    );
+  // Convert times to moment objects
+  const closingMoment = closingTime ? moment(closingTime, "hh:mm A") : null;
+  const openingMoment = openingTime ? moment(openingTime, "hh:mm A") : null;
+
+  // Determine if the restaurant is closed
+  let isClosed = false;
+
+  if (closingMoment && openingMoment) {
+    if (closingMoment.isBefore(openingMoment)) {
+      // Normal case: e.g. closes at 10 PM, opens at 6 AM
+      isClosed =
+        currentTime.isSameOrAfter(closingMoment) &&
+        currentTime.isBefore(openingMoment);
+    } else {
+      // Edge case: closes at 2:40 AM, opens at 3:00 AM (past midnight)
+      isClosed =
+        currentTime.isSameOrAfter(closingMoment) ||
+        currentTime.isBefore(openingMoment);
+    }
+  }
 
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden relative transition-all duration-300 transform hover:scale-105 hover:border-green-500 hover:border-2">
@@ -51,7 +65,7 @@ const RestaurantCard = ({
         )}
 
         {/* Closed Overlay */}
-        {isClosed && closingTime && (
+        {isClosed && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white font-bold">
             <p className="text-lg">Closed until {openingTime}</p>
             <button className="bg-white text-green-500 font-semibold px-4 py-2 rounded-lg mt-2">
