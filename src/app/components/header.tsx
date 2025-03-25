@@ -15,8 +15,13 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import axios from "axios";
 import DragonIcon from "../assets/svgs/dragon";
+import Loader from "./Loader";
 
-const HeaderItem = () => {
+interface IProps {
+  phoneNo: string;
+}
+
+const HeaderItem = ({ phoneNo }: IProps) => {
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -63,7 +68,7 @@ const HeaderItem = () => {
             </button>
             <div className="flex items-center space-x-2">
               <FiPhone />
-              <span className="text-sm">+923403115555</span>
+              <span className="text-sm">{phoneNo}</span>
             </div>
             <div className="flex items-center space-x-2">
               <FiSearch className="text-lg" />
@@ -162,6 +167,7 @@ const HeaderItem = () => {
           </ul>
         </nav>
       </div>
+      {loading && <Loader />}
     </>
   );
 };

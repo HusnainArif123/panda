@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import DragonIcon from "../assets/svgs/dragon";
+import Loader from "../components/Loader";
 
 const Login = () => {
   const router = useRouter();
@@ -26,19 +27,20 @@ const Login = () => {
       console.log(err);
       toast.error(err.message);
     } finally {
-      setLoading;
+      setLoading(false);
     }
   };
 
   const handleLoginData = async () => {
     try {
+      setLoading(true);
       const response = await axios.get("/api/loginData");
-      console.log(response, "resp");
       setLoginData(response.data.data[0]);
-      console.log(loginData, "loginData");
     } catch (error: any) {
-      console.log(error);
       toast.error(error.message);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -116,6 +118,7 @@ const Login = () => {
           </Link>
         </div>
       </div>
+      {loading && <Loader />}
     </div>
   );
 };

@@ -1,15 +1,20 @@
 "use client";
 
-const Footer = () => {
+interface IProps {
+  address: string;
+  phoneNo: string;
+  email: string;
+}
+const Footer = ({ address, phoneNo, email }: IProps) => {
   return (
     <footer className="bg-green-400 text-white py-10">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
         {/* Address & Contact Info */}
         <div>
           <h3 className="text-xl font-semibold mb-3">Contact Us</h3>
-          <p>123 Main Street, Lahore, Pakistan</p>
-          <p>Phone: +92 300 1234567</p>
-          <p>Email: support@example.com</p>
+          <p>{address}</p>
+          <p>Phone: {phoneNo}</p>
+          <p>Email: {email}</p>
         </div>
 
         {/* Social Media Links */}
