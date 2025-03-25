@@ -118,14 +118,6 @@ const HeaderItem = ({ phoneNo }: IProps) => {
             </li>
             <li>
               <Link
-                href="/categories"
-                className="flex items-center gap-2 p-2 rounded-md hover:bg-green-800 transition font-medium tracking-wide"
-              >
-                Categories
-              </Link>
-            </li>
-            <li>
-              <Link
                 href="/cart"
                 className="flex items-center gap-2 p-2 rounded-md hover:bg-green-800 transition font-medium tracking-wide"
               >
@@ -146,22 +138,6 @@ const HeaderItem = ({ phoneNo }: IProps) => {
                 className="flex items-center gap-2 p-2 rounded-md hover:bg-green-800 transition font-medium tracking-wide"
               >
                 Orders
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/support"
-                className="flex items-center gap-2 p-2 rounded-md hover:bg-green-800 transition font-medium tracking-wide"
-              >
-                Customer Support
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/privacy"
-                className="flex items-center gap-2 p-2 rounded-md hover:bg-green-800 transition font-medium tracking-wide"
-              >
-                Privacy Policy
               </Link>
             </li>
           </ul>
