@@ -48,9 +48,17 @@ const signup = () => {
     }
   }, [user]);
   return (
-    <div className="flex justify-center items-center h-screen bg-green-200">
+    <div
+      style={{
+        backgroundImage:
+          "url('https://as2.ftcdn.net/v2/jpg/01/35/62/89/1000_F_135628942_wAZhAFbDfQpTI533KoCSG3Vq9YfuSA8F.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+      className="flex justify-center items-center h-screen"
+    >
       {/* Left Section - Title & Description */}
-      <div className="w-1/2 p-8 text-white flex flex-col justify-center items-center border-r-4 border-white bg-green-500 rounded-l-lg">
+      <div className="w-1/2 p-8 text-white flex flex-col justify-center items-center border-r-4 border-green-600 bg-green-400 rounded-l-lg">
         <div className="flex flex-row  gap-2  p-5">
           <h1 className="text-4xl font-bold">{loginData.title}</h1>
           <DragonIcon width={50} height={40} />
@@ -59,8 +67,8 @@ const signup = () => {
           {loginData.description}
         </p>
       </div>
-      <div className="w-1/4 m-20 p-8 bg-white rounded-r-lg shadow-lg flex flex-col items-center">
-        <h1 className="text-green-700 text-3xl font-bold mb-6">Signup Now!</h1>
+      <div className="w-1/4 m-20 p-8 bg-green-200 rounded-r-lg shadow-lg flex flex-col items-center">
+        <h1 className="text-green-900 text-3xl font-bold mb-6">Signup Now!</h1>
         <div className="w-64 flex flex-col">
           <label className="text-gray-700 font-medium">
             Email <span className="text-red-500">*</span>
@@ -97,7 +105,7 @@ const signup = () => {
           </button>
 
           <Link
-            className="text-green-700 mt-4 text-center font-medium"
+            className="text-green-900 mt-4 text-center font-medium"
             href={"/login"}
           >
             Visit Login Page
