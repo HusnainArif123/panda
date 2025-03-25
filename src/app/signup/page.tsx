@@ -3,7 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import toast, { CheckmarkIcon } from "react-hot-toast";
+import toast, { CheckmarkIcon, Toaster } from "react-hot-toast";
 import DragonIcon from "../assets/svgs/dragon";
 import Loader from "../components/Loader";
 
@@ -37,7 +37,7 @@ const signup = () => {
       setLoginData(response.data.data[0]);
       console.log(loginData, "loginData");
     } catch (error: any) {
-      console.log(error);
+      console.log(error.error, "error");
       setLoading(false);
       toast.error(error.message);
     } finally {
@@ -64,6 +64,8 @@ const signup = () => {
       }}
       className="flex justify-center items-center h-screen"
     >
+      <Toaster />
+
       {/* Left Section - Title & Description */}
       <div className="w-1/2 p-8 text-white flex flex-col justify-center items-center border-r-4 border-green-600 bg-green-400 rounded-l-lg">
         <div className="flex flex-row  gap-2  p-5">

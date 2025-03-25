@@ -3,7 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import DragonIcon from "../assets/svgs/dragon";
 import Loader from "../components/Loader";
 
@@ -62,6 +62,7 @@ const Login = () => {
       }}
       className="flex justify-center items-center h-screen"
     >
+      <Toaster />
       {/* Left Section - Title & Description */}
       <div className="w-1/2 p-8 text-white flex flex-col justify-center items-center border-r-4 border-white bg-green-400 rounded-l-lg">
         <div className="flex flex-row  gap-2  p-5">
