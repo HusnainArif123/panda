@@ -29,4 +29,3 @@ const RestaurantSchema = new mongoose.Schema({
 
 export default mongoose.models.Restaurant ||
     mongoose.model("Restaurant", RestaurantSchema);
-==                                                                                              
