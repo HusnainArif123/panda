@@ -1,33 +1,46 @@
 "use client";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import toast from "react-hot-toast";
+import HeaderItem from "./components/header";
+import ImageSlider from "./components/imageSlider";
+import RestaurantGrid from "./components/hero";
+import Footer from "./components/footer";
+import { Loader } from "lucide-react";
 
-import Image from "next/image";
-import { Toaster, toast } from "react-hot-toast";
+const Profile = () => {
+  const [loading, setLoading] = React.useState(false);
+  const [webSiteData, setWebSiteData] = React.useState<any>();
 
-export default function Home() {
-  const showToast = () => {
-    toast.success("This is a test toast!");
+  const handleWebSiteDetails = async () => {
+    try {
+      setLoading(true);
+      const respData = await axios.get("/api/websiteDetail");
+      setWebSiteData(respData?.data.data[0]);
+      console.log(respData, "resp data");
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
+  useEffect(() => {
+    handleWebSiteDetails();
+  }, []);
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <Toaster /> {/* Ensure this is included at the top level */}
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-
-        <button
-          onClick={showToast}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-        >
-          Show Toast
-        </button>
-      </main>
+    <div>
+      <HeaderItem phoneNo={webSiteData?.phoneNo} />
+      <ImageSlider />
+      <RestaurantGrid />
+      <Footer
+        address={webSiteData?.address}
+        phoneNo={webSiteData?.phoneNo}
+        email={webSiteData?.email}
+      />
+      {loading && <Loader />}
     </div>
   );
-}
+};
+export default Profile;

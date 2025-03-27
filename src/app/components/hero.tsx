@@ -4,10 +4,11 @@ import axios from "axios";
 import { BadgePercent, Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-
 import moment from "moment-timezone";
+import { useRouter } from "next/navigation";
 
 const RestaurantCard = ({
+  _id,
   name,
   category,
   location,
@@ -18,6 +19,8 @@ const RestaurantCard = ({
   openingTime,
   ratingUser,
 }: any) => {
+  const router = useRouter();
+
   // Get current time in Pakistan timezone
   const currentTime = moment().tz("Asia/Karachi");
 
@@ -41,9 +44,28 @@ const RestaurantCard = ({
         currentTime.isBefore(openingMoment);
     }
   }
+  const handleGoTOMenu = () => {
+    const queryParams = new URLSearchParams({
+      id: encodeURIComponent(_id),
+      name: encodeURIComponent(name),
+      category: encodeURIComponent(category),
+      location: encodeURIComponent(location),
+      image: encodeURIComponent(image || ""),
+      discount: discount?.toString() || "0",
+      rating: rating?.toString() || "0",
+      closingTime: closingTime || "",
+      openingTime: openingTime || "",
+      ratingUser: ratingUser?.toString() || "0",
+    }).toString();
+
+    router.push(`/menu?${queryParams}`);
+  };
 
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden relative transition-all duration-300 transform hover:scale-105 hover:border-green-500 hover:border-2">
+    <div
+      onClick={handleGoTOMenu}
+      className="bg-white rounded-xl shadow-md overflow-hidden relative transition-all duration-300 transform hover:scale-105 hover:border-green-500 hover:border-2"
+    >
       {/* Image Wrapper */}
       <div className="relative">
         <img
