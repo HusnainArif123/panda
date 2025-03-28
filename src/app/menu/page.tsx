@@ -4,10 +4,13 @@ import HeaderItem from "@/app/components/header";
 import RestaurantCard from "@/app/components/MenuItem";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 const Menu = () => {
   const searchParams = useSearchParams();
-
+  const websiteDetails = useSelector((state: RootState) => state.restaurant);
+  console.log(websiteDetails.address, websiteDetails.phoneNo, "Phone No");
   const restaurant = {
     id: searchParams.get("id") || "",
     name: searchParams.get("name") || "",
@@ -20,14 +23,12 @@ const Menu = () => {
     openingTime: searchParams.get("openingTime") || "N/A",
     ratingUser: searchParams.get("ratingUser") || "0",
   };
+  const storedData = localStorage.getItem("websiteData");
+  const websiteData = storedData ? JSON.parse(storedData) : null;
 
-  useEffect(() => {
-    console.log(restaurant.name, "Husna");
-  }, []);
   return (
     <div>
-      <HeaderItem phoneNo={"042-383838"} />
-
+      <HeaderItem phoneNo={websiteData?.phoneNo} />
       <RestaurantCard
         name={decodeURIComponent(restaurant.name)}
         discount={decodeURIComponent(restaurant.discount)}
